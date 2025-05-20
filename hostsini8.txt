@@ -1,0 +1,22 @@
+Create an inventory file hosts.ini by executing the following command
+sudo gedit /var/lib/jenkins/workspace/<Your pipeline name>/hosts.ini
+
+  
+[local]
+localhost ansible_connection=local
+
+Create a playbook mydeploy.yml by executing the following command
+sudo gedit /var/lib/jenkins/workspace/<Your pipeline name>/mydeploy.yml
+
+Source code :
+---
+- name: Deploy Artifact to Localhost
+  hosts: localhost
+  become: true
+  become_user: student
+  become_method: su
+  tasks:
+    - name: Copy the artifact to the target location
+      copy:
+        src: "/var/lib/jenkins/workspace/your_pipeline_name/target/your_project_name-1.0-SNAPSHOT.jar"
+        dest: "/home/student/t.jar"
