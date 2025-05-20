@@ -1,0 +1,24 @@
+When you type [sudo systemctl status jenkins] in the terminal and after entering the correct password, 
+if Jenkins does not run, then you need to type [sudo update-alternatives --config java]
+and when asked to select for an option, enter 0 or 2. 
+After that, restart the computer and login to the required account, 
+open the terminal and again type [sudo systemctl status jenkins]
+and enter the password. This time Jenkins should be running(or active).
+
+Type localhost:8080 in the browser and enter
+
+Username : admin
+Password : sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+make pipeline and save
+
+Create an inventory file hosts.ini by executing the following command
+sudo gedit /var/lib/jenkins/workspace/<Your pipeline name>/hosts.ini
+and save
+
+Create a playbook mydeploy.yml by executing the following command
+sudo gedit /var/lib/jenkins/workspace/<Your pipeline name>/mydeploy.yml
+and save
+
+Click on Build now
+Click on “Stages”
