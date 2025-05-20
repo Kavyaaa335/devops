@@ -1,0 +1,19 @@
+prog 7
+myinv file:
+[local]
+localhost ansible_connection=local
+
+ansible --version
+mkdir kavya
+cd kavya
+nano myinv
+ansible all -i myinv --list-hosts
+nano hello.yml
+ansible-playbook -i myinv hello.yml
+mkdir library
+cd library
+nano helloworld.py
+cd
+chmod library/helloworld.py
+nano play2.yml
+ansible-playbook play2.yml
