@@ -1,0 +1,13 @@
+---
+- name: Test custom hello world module
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Say hello
+      helloworld:
+        name: "Ansible"
+      register: result   # <-- capture the result here
+
+    - name: Show message
+      debug:
+        msg: "{{ result.message }}"
