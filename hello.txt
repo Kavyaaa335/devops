@@ -1,0 +1,7 @@
+- name: Hello world playbook
+  hosts: local
+  connection: local
+  tasks:
+    - name: print hello world message
+      debug:
+        msg: "Hello World! welcome to ansible"
