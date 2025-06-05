@@ -1,0 +1,38 @@
+EXP-2
+mvn --version
+mvn archetype:generate -DgroupId=com.company.app -DartifactId=kavya -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.5 -DinteractiveMmode=false
+java -cp target/kavya-1.0-SNAPSHOT.jar com.company.app.App
+
+
+EXP-3
+gradle -v
+mkdir prog3
+cd prog3
+(make version from 17 to 11)
+JAVA_HOME=usr/lib/jvm/java-11-openjdk-amd64
+export PATH= $JAVA_HOME/bin : PATH
+export JAVA_HOME
+gradle build
+gradle run
+
+  for tasks open build.gradle:
+  task hello{
+    doLast{println 'Hello gradle!!'}
+  }
+- gradle hello
+
+
+
+EXP-4
+mvn --version
+mvn archetype:generate -DgroupId=com.company.app -DartifactId=kavya -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.5 -DinteractiveMmode=false
+mvn compile
+mvn package
+java -cp target/kavya-1.0-SNAPSHOT.jar com.company.app.App
+
+gradle init --type pom
+edit the build gradle to add apply plugin:application in the plugins section.  add the given below to the end of the file
+mainClassName= "com.example.app.App"
+delete pom.xml and then in terminal run
+gradle build
+gradle run
