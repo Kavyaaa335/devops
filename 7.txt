@@ -1,0 +1,82 @@
+Create an inventory called hosts.ini by executing the below command 
+gedit  hosts.ini 
+2) Type the code inside hosts.ini as shown below 
+[local] 
+localhost  ansible_connection=local 
+Save and close the file 
+3) To test the inventory connectivity, type the below mentioned command 
+ansible all -i hosts.ini  --list-hosts 
+4) To ping the inventory hosts, type the below mentioned command 
+ansible all -i hosts.ini  -m ping 
+5) Create an playbook called firstpb.yml by executing the below command 
+gedit   hello.yml
+- name: Hello world playbook
+  hosts: local
+  connection: local
+  tasks:
+    - name: print hello world message
+      debug:
+        msg: "Hello World! welcome to ansible"
+
+ansible-playbook  -i hosts.ini hello.yml
+
+1) Create a directory called library by executing the below command 
+ 
+mkdir -p library 
+ 
+2) Go inside the library directory by executing the below command 
+ 
+cd    library 
+ 
+3) To create a module firstmodule.py, type the below mentioned command 
+ 
+gedit helloworld.py 
+ 
+4) Type the code inside firstmodule.py as shown below 
+ 
+#!/usr/bin/python 
+from ansible.module_utils.basic import AnsibleModule 
+ 
+def walk(): 
+    module_args = dict( 
+        name=dict(type='str', required=True) 
+    ) 
+ 
+    module = AnsibleModule(argument_spec=module_args) 
+    result = {"changed": False, "message": f"Welcome, {module.params['name']}!"} 
+    module.exit_json(**result) 
+ 
+if __name__ == '__main__': 
+    walk() 
+Save and close the file 
+ 
+5) To come out of the library directory, type the below command 
+ 
+cd .. 
+ 
+ 
+ 
+6) To give execute permission for the module, type the below command 
+ 
+chmod +x library/firstmodule.py 
+ 
+7) Create an playbook called play2.yml by executing the below command 
+--- 
+- name: Ansible with one module 
+  hosts: localhost 
+  gather_facts: no 
+  tasks: 
+    - name: Welcome friends 
+      helloworld: 
+        name: "Ansible" 
+      register: result 
+ 
+    - name: Show message 
+      debug: 
+        msg: "{{ result.message }}" 
+ 
+Save and close the file 
+ 
+8) To run the playbook, type the below mentioned command 
+ 
+ansible-playbook  -i hosts.ini play2.yml
