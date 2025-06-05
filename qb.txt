@@ -1,0 +1,1080 @@
+
+### **1) What is Continuous Integration? Explain.**
+
+**Continuous Integration (CI)** is a DevOps practice where developers frequently merge their code changes into a shared repository, typically several times a day.
+Each integration is automatically verified by running tests and build processes, allowing early detection of bugs and integration issues.
+CI improves software quality and speeds up development by identifying problems early.
+
+### **2) Write the commands to:**
+
+#### i. Initialize your GitHub repository:
+
+```bash
+git init
+```
+#### ii. Configure your GitHub email:
+```bash
+git config --global user.email "your_email@example.com"
+```
+#### iii. Set the origin to point to your GitHub account:
+
+```bash
+git remote add origin https://github.com/yourusername/your-repo.git
+```
+
+#### iv. See the contents of the public key file:
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+#### v. See the password of Jenkins admin account:
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+---
+
+### **3) What is Ansible? Explain.**
+
+**Ansible** is an open-source **configuration management**, **automation**, and **orchestration tool**.
+It allows you to automate tasks like software installation, configuration, updates, and deployment across multiple machines using simple YAML-based files called **playbooks**.
+Ansible is **agentless** and uses **SSH** to connect to remote servers.
+
+---
+
+### **4) What are modules in Ansible? List few examples.**
+
+**Modules** are units of code in Ansible that perform specific tasks.
+Modules are called from **playbooks** to carry out automation tasks like file operations, package management, service control, etc.
+
+**Examples of built-in modules:**
+
+* `copy` – to copy files
+* `yum` – to install packages on RedHat-based systems
+* `apt` – to install packages on Debian-based systems
+* `service` – to manage services
+* `user` – to manage user accounts
+* `ping` – to test connectivity
+
+---
+
+### **5) Write the commands to:**
+
+#### i. Check if Ansible is installed:
+
+```bash
+ansible --version
+```
+
+#### ii. Create an inventory file:
+
+```bash
+echo "[webservers]
+192.168.1.10
+192.168.1.11" > inventory.ini
+```
+
+#### iii. Test for inventory connectivity:
+
+```bash
+ansible all -i inventory.ini --list-hosts
+```
+
+#### iv. Test for host reachability:
+
+```bash
+ansible all -i inventory.ini -m ping
+```
+
+#### v. Create a playbook:
+
+```bash
+nano install_apache.yml
+```
+
+Sample content:
+
+```yaml
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+```
+
+#### vi. Run the playbook:
+
+```bash
+ansible-playbook -i inventory.ini install_apache.yml
+
+Absolutely, Kavya! Here are solid, viva-ready answers for the next set of DevOps questions — phrased just the way examiners like: **confident, clear, and technically correct** ✅
+
+---
+
+### **1) What is DevOps? Why should we use DevOps?**
+
+**DevOps** is a set of practices that integrates **development** (Dev) and **operations** (Ops) to shorten the software development life cycle while ensuring high software quality.
+
+#### **Why use DevOps?**
+
+* Speeds up software delivery through automation and CI/CD
+* Improves collaboration between dev and ops teams
+* Ensures consistent environments with Infrastructure as Code (IaC)
+* Helps detect and fix bugs faster with continuous testing and monitoring
+
+---
+
+### **2) Create a Maven project with archetype version 1.5 and display a message in `App.java`**
+
+#### Step 1: Generate Maven project
+
+```bash
+mvn archetype:generate -DgroupId=com.example \
+  -DartifactId=devops-lab \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DarchetypeVersion=1.5 \
+  -DinteractiveMode=false
+```
+
+#### Step 2: Navigate to the project folder
+
+```bash
+cd devops-lab
+```
+
+#### Step 3: Edit `App.java` to print the message
+
+File: `src/main/java/com/example/App.java`
+
+```java
+package com.example;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Welcome to DevOps lab");
+    }
+}
+```
+
+#### Step 4: Compile and run
+
+```bash
+mvn package
+java -cp target/devops-lab-1.0-SNAPSHOT.jar com.example.App
+```
+
+---
+
+### **3) Create a Gradle project with 3 tasks and run multiple tasks simultaneously**
+
+#### Step 1: Create folders and `build.gradle`
+
+```bash
+mkdir gradle-lab && cd gradle-lab
+gradle init --type basic
+```
+
+#### Step 2: Add tasks in `build.gradle`
+
+```groovy
+task task1 {
+    doLast {
+        println 'Executing Task 1'
+    }
+}
+
+task task2 {
+    doLast {
+        println 'Executing Task 2'
+    }
+}
+
+task task3 {
+    doLast {
+        println 'Executing Task 3'
+    }
+}
+```
+
+#### Step 3: Run all tasks simultaneously
+
+```bash
+gradle task1 task2 task3
+```
+
+---
+
+### **4) Differentiate between Maven and Gradle**
+
+| Feature         | Maven            | Gradle                         |
+| --------------- | ---------------- | ------------------------------ |
+| DSL             | XML (`pom.xml`)  | Groovy/Kotlin (`build.gradle`) |
+| Performance     | Slower           | Faster with incremental builds |
+| Flexibility     | Convention-based | Highly customizable            |
+| Build Cache     | No               | Yes                            |
+| Dependency Mgmt | Mature           | Also robust                    |
+
+#### **When to use:**
+
+* **Maven** is best for simple, structured, large enterprise projects with existing XML standards.
+* **Gradle** is preferred for fast, customizable, modern builds (especially Android).
+
+---
+
+### **5) Steps to install Jenkins on a local environment (Ubuntu)**
+
+1. **Update packages**
+
+```bash
+sudo apt update
+```
+
+2. **Install Java (Jenkins requires Java)**
+
+```bash
+sudo apt install openjdk-11-jdk -y
+```
+
+3. **Add Jenkins key and repository**
+
+```bash
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian binary/ > \
+  /etc/apt/sources.list.d/jenkins.list'
+```
+
+4. **Install Jenkins**
+
+```bash
+sudo apt update
+sudo apt install jenkins -y
+```
+
+5. **Start Jenkins**
+
+```bash
+sudo systemctl start jenkins
+```
+
+6. **Enable Jenkins on boot**
+
+```bash
+sudo systemctl enable jenkins
+```
+
+7. **Access Jenkins in browser**
+   Visit: `http://localhost:8080`
+
+8. **Get admin password**
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+Absolutely, Kavya! Here's a clear breakdown of each command from **Experiment 2** — along with the **purpose and explanation** for each part so you can explain it confidently in your viva:
+
+---
+
+### 🔹 **1. Check Maven Version**
+
+```bash
+mvn --version
+```
+
+#### ✅ **Explanation:**
+
+* This checks whether **Maven is installed** and shows the current version.
+* Also displays:
+
+  * Java version it's using
+  * JAVA\_HOME path
+  * Maven installation directory
+
+📌 **Use in Viva**: “Used to verify Maven installation and environment setup.”
+
+---
+
+### 🔹 **2. Generate Maven Project**
+
+```bash
+mvn archetype:generate \
+  -DgroupId=com.company.app \
+  -DartifactId=kavya \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DarchetypeVersion=1.5 \
+  -DinteractiveMode=false
+```
+
+#### ✅ **Explanation:**
+
+This command **creates a new Maven project** using a predefined template (archetype).
+
+**Breakdown:**
+
+* `mvn archetype:generate`: Starts the project creation process using a template.
+* `-DgroupId=com.company.app`: Sets the **package name** or namespace (like a folder structure for Java classes).
+* `-DartifactId=kavya`: The **project name** or folder name; becomes the .jar name.
+* `-DarchetypeArtifactId=maven-archetype-quickstart`: Uses the default **Java app template**.
+* `-DarchetypeVersion=1.5`: Specifies the version of the template archetype.
+* `-DinteractiveMode=false`: Skips interactive prompts, creates project directly.
+
+📌 **Use in Viva**: “This creates the folder structure, `pom.xml`, and basic `App.java` using a Maven quickstart template.”
+
+---
+
+### 🔹 **3. Run the App**
+
+```bash
+java -cp target/kavya-1.0-SNAPSHOT.jar com.company.app.App
+```
+
+#### ✅ **Explanation:**
+
+This command **runs the compiled Java application**.
+
+**Breakdown:**
+
+* `java`: Java command-line tool to run `.class` files.
+* `-cp target/kavya-1.0-SNAPSHOT.jar`: Sets the **classpath** to the compiled JAR file (output of `mvn package`).
+* `com.company.app.App`: The **fully qualified class name** (with package) containing the `main()` method.
+
+📌 **Use in Viva**: “This executes the `App.java` file inside the JAR created by Maven.”
+
+Great, Kavya! Let’s go step-by-step through **Experiment 3 (Gradle)** — explaining **what each command does**, and what it shows to the examiner.
+
+---
+
+### 🔹 **1. Check Gradle Version**
+
+```bash
+gradle -v
+```
+
+#### ✅ **Explanation:**
+
+* Verifies that **Gradle is installed**.
+* Shows Gradle version, JVM version, Java home path, OS info.
+
+📌 **Use in Viva**: “This confirms the Gradle setup and Java compatibility.”
+
+---
+
+### 🔹 **2. Create and Navigate to a Project Folder**
+
+```bash
+mkdir prog3
+cd prog3
+```
+
+#### ✅ **Explanation:**
+
+* Creates a new directory `prog3` for your Gradle project.
+* Moves into that directory.
+
+📌 **Use in Viva**: “Sets up the working folder for the new Gradle project.”
+
+---
+
+### 🔹 **3. Set Java Version (17 ➡ 11)**
+
+```bash
+JAVA_HOME=usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME
+```
+
+#### ✅ **Explanation:**
+
+* Switches Java version to 11 (Gradle prefers Java 11 for compatibility).
+* `JAVA_HOME`: Points to the Java 11 installation directory.
+* `PATH`: Adds Java 11 binaries to the system path so Gradle uses it.
+* `export`: Makes these variables available to the terminal session.
+
+📌 **Use in Viva**:
+“This ensures that Gradle uses Java 11 instead of the default Java 17, as some versions of Gradle or plugins may need Java 11 compatibility.”
+
+---
+
+### 🔹 **4. Build the Project**
+
+```bash
+gradle build
+```
+
+#### ✅ **Explanation:**
+
+* Builds the Gradle project by compiling source files, running tests, and creating output directories like `build/`.
+
+📌 **Use in Viva**:
+“This runs the default Gradle build lifecycle, compiling and preparing the project structure.”
+
+---
+
+### 🔹 **5. Run the Project**
+
+```bash
+gradle run
+```
+
+#### ✅ **Explanation:**
+
+* Executes the `main` method of your application **(if an application plugin and main class are defined)**.
+
+📌 **Use in Viva**:
+“This runs the project’s main class, similar to `java` command for Java programs.”
+
+---
+
+### 🔹 **6. Add and Run a Custom Task**
+
+#### Step 1: Open `build.gradle` and add:
+
+```groovy
+task hello {
+    doLast {
+        println 'Hello gradle!!'
+    }
+}
+```
+
+#### ✅ **Explanation:**
+
+* This defines a **custom Gradle task** named `hello`.
+* `doLast {}` block runs when the task is executed.
+
+📌 **Use in Viva**:
+“This is a user-defined task that prints a custom message when run.”
+
+#### Step 2: Run the task:
+
+```bash
+gradle hello
+```
+
+#### Output:
+
+```
+> Task :hello
+Hello gradle!!
+```
+
+---
+
+### 🔁 Summary of Flow:
+
+| Command         | Purpose                           |
+| --------------- | --------------------------------- |
+| `gradle -v`     | Verify Gradle installation        |
+| `mkdir prog3`   | Create project folder             |
+| `JAVA_HOME=...` | Set Java version to 11            |
+| `gradle build`  | Build the project                 |
+| `gradle run`    | Run the main class (if defined)   |
+| `task hello {}` | Define custom Gradle task         |
+| `gradle hello`  | Run custom task and print message |
+
+4th exp
+Perfect, Kavya! You're covering both **Maven** and **Gradle** project workflows — a great viva question setup. Here's the **full explanation** of each step from this experiment. This will help you confidently explain each command and step during your exam 👇
+
+---
+
+## ✅ **Maven Section**
+
+### 🔹 **1. Check Maven version**
+
+```bash
+mvn --version
+```
+
+**Purpose**: Confirms Maven is installed and shows:
+
+* Maven version
+* Java version
+* Java home path
+* OS details
+
+---
+
+### 🔹 **2. Generate a Maven project**
+
+```bash
+mvn archetype:generate \
+  -DgroupId=com.company.app \
+  -DartifactId=kavya \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DarchetypeVersion=1.5 \
+  -DinteractiveMmode=false
+```
+
+> 🔴 **Note**: There’s a typo in `-DinteractiveMmode`. It should be:
+
+```bash
+-DinteractiveMode=false
+```
+
+**Explanation**: This creates a basic Maven Java project using the Quickstart archetype template.
+
+* `groupId=com.company.app`: Package structure.
+* `artifactId=kavya`: Project folder and jar name.
+* `archetypeArtifactId=...`: Template for Java app.
+* `archetypeVersion=1.5`: Version of the archetype.
+* `interactiveMode=false`: Skips manual inputs.
+
+---
+
+### 🔹 **3. Compile the project**
+
+```bash
+mvn compile
+```
+
+**Purpose**: Compiles the Java source files (`.java` ➝ `.class` files). Output goes to `target/classes/`.
+
+---
+
+### 🔹 **4. Package the project**
+
+```bash
+mvn package
+```
+
+**Purpose**: Compiles and packages the project into a JAR file:
+
+* Output: `target/kavya-1.0-SNAPSHOT.jar`
+
+---
+
+### 🔹 **5. Run the compiled app**
+
+```bash
+java -cp target/kavya-1.0-SNAPSHOT.jar com.company.app.App
+```
+
+**Explanation**: Runs the `App.java` class from the packaged jar.
+
+* `-cp`: Sets the classpath to the jar.
+* `com.company.app.App`: Full package and class name with `main()` method.
+
+---
+
+## ✅ **Gradle Section**
+
+### 🔹 **1. Initialize Gradle project using Maven layout**
+
+```bash
+gradle init --type pom
+```
+
+**Purpose**: Initializes a Gradle project using a **Maven-style structure** (`pom.xml` generated).
+
+* This sets up Gradle files and folders.
+* You’ll see a `pom.xml` and a basic `build.gradle`.
+
+---
+
+### 🔹 **2. Edit `build.gradle`**
+
+* In the `plugins` section, add:
+
+```groovy
+apply plugin: 'application'
+```
+
+* At the **end** of the file, add:
+
+```groovy
+mainClassName = 'com.example.app.App'
+```
+
+📝 This tells Gradle:
+
+* To treat the project as a runnable Java app.
+* The main class to launch when using `gradle run`.
+
+---
+
+### 🔹 **3. Delete the `pom.xml`**
+
+```bash
+rm pom.xml
+```
+
+**Why?**: Since you're now using Gradle instead of Maven, `pom.xml` is no longer needed.
+
+---
+
+### 🔹 **4. Build the Gradle project**
+
+```bash
+gradle build
+```
+
+**Explanation**: Compiles and packages the project just like `mvn package`.
+
+* Output goes to `build/` folder.
+
+---
+
+### 🔹 **5. Run the application**
+
+```bash
+gradle run
+```
+
+**Explanation**: Launches the app using the `mainClassName` specified earlier.
+
+---
+
+### 📌 Summary Table:
+
+| Command                       | Tool   | Purpose               |
+| ----------------------------- | ------ | --------------------- |
+| `mvn --version`               | Maven  | Check version         |
+| `mvn archetype:generate ...`  | Maven  | Create Java project   |
+| `mvn compile`                 | Maven  | Compile source        |
+| `mvn package`                 | Maven  | Package as JAR        |
+| `java -cp ... App`            | Java   | Run compiled JAR      |
+| `gradle init --type pom`      | Gradle | Create Gradle project |
+| `apply plugin: 'application'` | Gradle | Treat project as app  |
+| `mainClassName = ...`         | Gradle | Set main class to run |
+| `gradle build`                | Gradle | Build/compile project |
+| `gradle run`                  | Gradle | Run the main class    |
+
+exp 6
+Awesome, Kavya! This is a full **CI pipeline setup using GitHub, Maven, and Jenkins**. Let’s explain each part so you can **confidently answer in your viva** and show your full DevOps understanding.
+
+---
+
+## ✅ **PART 1: Maven Project Setup**
+
+### 🔹 1. Check Maven Version
+
+```bash
+mvn --version
+```
+
+**Purpose**: Confirms Maven is installed properly and shows version info.
+
+---
+
+### 🔹 2. Generate Maven Project
+
+```bash
+mvn archetype:generate -DgroupId=com.company.app -DartifactId=kavya -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMmode=false
+```
+
+⚠️ **Typo alert**: `-DinteractiveMmode=false` should be `-DinteractiveMode=false`
+
+* This creates the `kavya/` Maven project with default structure and sample code.
+
+---
+
+### 🔹 3. Move into Project Folder
+
+```bash
+cd kavya
+```
+
+---
+
+### 🔹 4. Build the Project
+
+```bash
+mvn package
+```
+
+* Compiles Java files and generates a `.jar` file in the `target/` directory.
+
+🛠️ **If build fails**:
+Open `pom.xml` and update:
+
+```xml
+<maven.compiler.source>7</maven.compiler.source>
+<maven.compiler.target>7</maven.compiler.target>
+```
+
+Then run:
+
+```bash
+mvn package
+```
+
+✅ **Reason**: The original value (5) may be too old for current Java versions.
+
+---
+
+## ✅ **PART 2: GitHub Configuration**
+
+### 🔹 5. Set Git Identity
+
+```bash
+git config --global user.email "kavyamadhu.335@gmail.com"
+git config --global user.name "Kavyaaa335"
+```
+
+### 🔹 6. Initialize Git Repo
+
+```bash
+git init
+```
+
+### 🔹 7. Add Project Files
+
+```bash
+git add pom.xml
+git add src
+```
+
+### 🔹 8. Generate SSH Key for GitHub
+
+```bash
+ssh-keygen -t ed25519 -C "kavyamadhu.335@gmail.com"
+```
+
+* Generates a secure key for pushing via SSH.
+
+### 🔹 9. View Public Key (for GitHub)
+
+```bash
+sudo cat /home/student/.ssh/id_ed25519.pub
+```
+
+* Paste this into your GitHub **SSH Keys** section in settings.
+
+---
+
+### 🔹 10. Commit & Push to GitHub
+
+```bash
+git commit -m "ci pipeline"
+git remote add origin git@github.com:Kavyaaa335/myjenkins
+git config --global push.autoSetupRemote true
+git branch -M main
+git push origin main
+```
+
+🛠️ **If error (like non-fast-forward)**:
+
+```bash
+git pull --rebase origin main
+git push origin main
+```
+
+---
+
+## ✅ **PART 3: Jenkins Integration**
+
+### 🔹 11. Check Jenkins Status
+
+```bash
+sudo systemctl status jenkins
+```
+
+* Ensures Jenkins is running on your system.
+
+---
+
+### 🔹 12. Jenkinsfile / Pipeline Script
+
+```groovy
+pipeline {
+    agent any 
+    stages {
+        stage("Checkout") {
+            steps {
+                git branch: 'main', url: 'https://github.com/Kavyaaa335/myjenkins.git'
+            }
+        }
+
+        stage("Build") {
+            steps {
+                sh "mvn clean package"
+            }
+        }
+
+        stage("Test") {
+            steps {
+                sh "mvn test"
+            }
+        }
+    }
+}
+```
+
+### ✅ **Explanation**:
+
+| Stage    | What it does                                 |
+| -------- | -------------------------------------------- |
+| Checkout | Clones the code from your GitHub repository. |
+| Build    | Compiles and packages the Maven project.     |
+| Test     | Runs unit tests (if any) using `mvn test`.   |
+
+✅ All 3 green ticks in Jenkins = success for CI pipeline execution.
+
+---
+
+### 🔁 Summary for Viva:
+
+1. **Project Setup**: Used Maven to generate and build the project.
+2. **Version Control**: Pushed code to GitHub via Git and SSH.
+3. **CI Pipeline**: Used Jenkins to automatically fetch, build, and test code using a declarative pipeline.
+
+exp 7
+Great job, Kavya! You're now using **Ansible Inventories**, **Playbooks**, and even creating a **Custom Module** — that’s advanced viva material. Let’s break it down and explain **step-by-step** what each part does. This will help you **answer viva confidently** and **impress the examiner**.
+
+---
+
+## ✅ **PART 1: Ansible Inventory and Playbook**
+
+### 🔹 1. Create an Inventory File
+
+```bash
+gedit hosts.ini
+```
+
+Then inside `hosts.ini`, type:
+
+```ini
+[local]
+localhost ansible_connection=local
+```
+
+📌 **Explanation**:
+
+* `[local]` is a **host group name**.
+* `localhost` is your own system.
+* `ansible_connection=local` tells Ansible to execute commands **locally**, not over SSH.
+
+---
+
+### 🔹 2. Test Inventory Connectivity
+
+```bash
+ansible all -i hosts.ini --list-hosts
+```
+
+📌 **Explanation**:
+
+* `all`: Refers to all hosts in your inventory.
+* This lists all hostnames Ansible will connect to (should show `localhost`).
+
+---
+
+### 🔹 3. Ping the Inventory Hosts
+
+```bash
+ansible all -i hosts.ini -m ping
+```
+
+📌 **Explanation**:
+
+* `-m ping`: Uses the built-in `ping` module.
+* Tests if Ansible can **communicate** with the hosts.
+
+✅ Expected Output:
+
+```yaml
+localhost | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+```
+
+---
+
+### 🔹 4. Create a Simple Playbook
+
+```bash
+gedit hello.yml
+```
+
+Paste this:
+
+```yaml
+- name: Hello world playbook
+  hosts: local
+  connection: local
+  tasks:
+    - name: print hello world message
+      debug:
+        msg: "Hello World! welcome to ansible"
+```
+
+### 🔹 5. Run the Playbook
+
+```bash
+ansible-playbook -i hosts.ini hello.yml
+```
+
+📌 **Explanation**:
+
+* This playbook connects to `localhost` and prints a message using the `debug` module.
+
+✅ Output:
+
+```yaml
+TASK [print hello world message]
+ok: [localhost] => {
+    "msg": "Hello World! welcome to ansible"
+}
+```
+
+---
+
+## ✅ **PART 2: Custom Module Creation**
+
+### 🔹 1. Create a Directory for Custom Modules
+
+```bash
+mkdir -p library
+cd library
+```
+
+---
+
+### 🔹 2. Create a Custom Module
+
+```bash
+gedit helloworld.py
+```
+
+Paste this:
+
+```python
+#!/usr/bin/python
+from ansible.module_utils.basic import AnsibleModule
+
+def walk():
+    module_args = dict(
+        name=dict(type='str', required=True)
+    )
+
+    module = AnsibleModule(argument_spec=module_args)
+    result = {"changed": False, "message": f"Welcome, {module.params['name']}!"}
+    module.exit_json(**result)
+
+if __name__ == '__main__':
+    walk()
+```
+
+📌 **Explanation**:
+
+* This is a **custom Python module** called `helloworld`.
+* Takes a `name` as input.
+* Returns a welcome message using that name.
+
+---
+
+### 🔹 3. Come Back to Main Folder
+
+```bash
+cd ..
+```
+
+---
+
+### 🔹 4. Give Execute Permission
+
+```bash
+chmod +x library/helloworld.py
+```
+
+---
+
+### 🔹 5. Create Playbook to Use the Custom Module
+
+```bash
+gedit play2.yml
+```
+
+Paste this:
+
+```yaml
+---
+- name: Ansible with one module
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Welcome friends
+      helloworld:
+        name: "Ansible"
+      register: result
+
+    - name: Show message
+      debug:
+        msg: "{{ result.message }}"
+```
+
+📌 **Explanation**:
+
+* This uses the **custom module** `helloworld`.
+* It passes the string `"Ansible"` to it.
+* Registers the result and prints the message.
+
+---
+
+### 🔹 6. Run the Playbook
+
+```bash
+ansible-playbook -i hosts.ini play2.yml
+```
+
+✅ Output should show:
+
+```yaml
+TASK [Show message]
+ok: [localhost] => {
+    "msg": "Welcome, Ansible!"
+}
+```
+
+---
+
+## 🎯 Quick Summary (Viva Pointers):
+
+| Step            | Tool              | Purpose                              |
+| --------------- | ----------------- | ------------------------------------ |
+| `hosts.ini`     | Ansible Inventory | Defines local machine as target      |
+| `hello.yml`     | Playbook          | Uses `debug` to print Hello          |
+| `helloworld.py` | Custom Module     | Takes `name` and returns greeting    |
+| `play2.yml`     | Playbook          | Uses custom module and prints output |
+
+ 1. What is a Playbook in Ansible?
+An Ansible playbook is a YAML file that defines a set of automation tasks to be executed on target hosts.
+
+Playbooks describe "what" to do, not "how" (declarative).
+
+They contain one or more plays, and each play maps a group of hosts to a set of tasks.
+
+Tasks are executed using Ansible modules.
+
+2. Types of Playbooks in Ansible (Based on Use Case)
+While there are no official "types", they are commonly categorized by purpose:
+
+Type	Purpose
+Setup Playbook	Install and configure software (e.g., Apache, MySQL).
+Deployment Playbook	Deploy code or packages to servers.
+Maintenance Playbook	Apply updates, restart services, change settings.
+Monitoring Playbook	Set up monitoring tools, alerts, or health checks.
+Rollback Playbook	Revert servers to a previous state (after failed deployment).
+
+🔹 3. What is a Pipeline in Azure DevOps?
+An Azure DevOps Pipeline is a way to automate the building, testing, and deploying of code in a CI/CD workflow.
+
+There are two main types:
+
+🔹 4. Types of Pipelines in Azure DevOps
+Pipeline Type	Description
+Build Pipeline (CI)	- Used for compiling code, running tests, and creating artifacts.
+- Triggered on every commit or pull request.
+Release Pipeline (CD)	- Used for deploying built artifacts to different environments (e.g., Dev, Test, Prod).
+- Can include manual approvals, stages, and rollback.
+
+🔹 Bonus: YAML vs Classic Pipelines
+Feature	Classic Pipelines	YAML Pipelines
+UI	Visual Designer (drag & drop)	Code-based (YAML file in repo)
+Flexibility	Limited	Highly flexible
+Version Control	Not stored in code	Stored with your source code
+Recommended	Legacy	✅ Microsoft’s recommended approach
