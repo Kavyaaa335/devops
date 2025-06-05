@@ -12,5 +12,42 @@ git add src
 ssh-keygen -t ed25519 -C "kavyamadhu.335@gmail.com"
 sudo cat /home/student/.ssh/id_ed25519.pub
 (enter password)
-git remote add origin
-(if error git pull rebase
+git commit -m "ci pipeline"
+git remote add origin git@github.com:Kavyaaa335/myjenkins
+git config --global push.autoSetupRemote true
+git branch -M main
+git push origin main
+(if error git pull rebase origin main and rerun the above)
+sudo systemctl status jenkins
+pipeline 
+{ 
+    agent any 
+    stages 
+    { 
+          stage("Checkout") 
+          { 
+               steps 
+               { 
+                      git branch: 'main', url: 'https://github.com/Kavyaaa335/myjenkins.git'
+               } 
+          } 
+ 
+          stage("Build") 
+          { 
+              steps 
+              { 
+                     sh "mvn clean package" 
+              } 
+          } 
+ 
+           
+          stage("Test") 
+          { 
+              steps 
+              { 
+                     sh "mvn test" 
+              } 
+          } 
+      } 
+} 
+save and build now- 3 ticks
